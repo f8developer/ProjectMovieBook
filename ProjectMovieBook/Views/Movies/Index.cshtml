@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjectMovieBook.Models.Movie.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Movies</h1>
+
+<!-- Search Form -->
+<form method="get" asp-action="Index">
+    <div class="form-inline">
+        <input type="text" name="searchQuery" class="form-control" placeholder="Search by title, genre or director" value="@ViewData["SearchQuery"]" />
+        <button type="submit" class="btn btn-primary ml-2">Search</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Director</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.MovieGenres.Count</td>
+                    <td>@movie.Rating</td>
+                    <td>@movie.Director.Name</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Movies", new { id = movie.Id })" class="btn btn-warning">Edit</a>
+                        <a href="@Url.Action("Delete", "Movies", new { id = movie.Id })" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No movies found.</p>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>

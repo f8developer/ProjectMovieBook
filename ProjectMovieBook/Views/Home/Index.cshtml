@@ -1,0 +1,38 @@
+﻿<!-- Index.cshtml for .NET 9.0 -->
+@{
+    ViewData["Title"] = "Home";
+}
+<div class="text-center">
+    <header class="py-5 bg-dark text-white">
+        <h1 class="display-4 fw-bold">Welcome to Movies & Books Hub</h1>
+        <p class="lead">Discover your next favorite book or movie!</p>
+        <a class="btn btn-primary btn-lg mt-3" asp-controller="Movies" asp-action="Index">Explore Movies</a>
+        <a class="btn btn-secondary btn-lg mt-3" asp-controller="Books" asp-action="Index">Explore Books</a>
+    </header>
+</div>
+
+<div class="container my-5">
+    <h2 class="mb-4 text-light">Featured Picks</h2>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card bg-secondary text-white shadow">
+                <img src="/movies.jpg" class="card-img-top" alt="Movies">
+                <div class="card-body">
+                    <h5 class="card-title">Top Movies</h5>
+                    <p class="card-text">Browse trending and classic movies.</p>
+                    <a asp-controller="Movies" asp-action="Index" class="btn btn-outline-light">View Movies</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card bg-secondary text-white shadow">
+                <img src="/books.jpg" class="card-img-top" alt="Books">
+                <div class="card-body">
+                    <h5 class="card-title">Top Books</h5>
+                    <p class="card-text">Discover new and bestselling books.</p>
+                    <a asp-controller="Books" asp-action="Index" class="btn btn-outline-light">View Books</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

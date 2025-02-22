@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjectMovieBook.Models.Book.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Books</h1>
+
+<!-- Search Form -->
+<form method="get" asp-action="Index">
+    <div class="form-inline">
+        <input type="text" name="searchQuery" class="form-control" placeholder="Search by title, genre or author" value="@ViewData["SearchQuery"]" />
+        <button type="submit" class="btn btn-primary ml-2">Search</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Author</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.BookGenres.Count</td>
+                    <td>@book.Rating</td>
+                    <td>@book.Author.Name</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Books", new { id = book.Id })" class="btn btn-warning">Edit</a>
+                        <a href="@Url.Action("Delete", "Books", new { id = book.Id })" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No books found.</p>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
