@@ -32,7 +32,7 @@ jobs:
         dotnet restore ProjectMovieBook.Core
 
     - name: Build solution
-      run: dotnet build MovieBook.sln --configuration Release --no-restore
+      run: dotnet build ProjectMovieBook.sln --configuration Release --no-restore
 
     - name: Run tests
       run: |
