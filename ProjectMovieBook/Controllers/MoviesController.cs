@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectMovieBook.Data;
 using ProjectMovieBook.Models;
-using ProjectMovieBook.Models.Book;
 using ProjectMovieBook.Models.Movie;
 
 namespace ProjectMovieBook.Controllers

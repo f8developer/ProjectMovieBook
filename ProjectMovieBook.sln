@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMovieBook", "ProjectMovieBook\ProjectMovieBook.csproj", "{501A104B-DE52-4689-837A-DB8AFDC4C8EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMovieBook.Core", "ProjectMovieBook.Core\ProjectMovieBook.Core.csproj", "{F1A1198C-C407-4909-A895-9536F38A24F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMovieBook.Data", "ProjectMovieBook.Data\ProjectMovieBook.Data.csproj", "{7767BC7A-86B5-4438-A295-48B1E9D6387C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{501A104B-DE52-4689-837A-DB8AFDC4C8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{501A104B-DE52-4689-837A-DB8AFDC4C8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{501A104B-DE52-4689-837A-DB8AFDC4C8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1A1198C-C407-4909-A895-9536F38A24F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A1198C-C407-4909-A895-9536F38A24F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A1198C-C407-4909-A895-9536F38A24F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A1198C-C407-4909-A895-9536F38A24F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7767BC7A-86B5-4438-A295-48B1E9D6387C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7767BC7A-86B5-4438-A295-48B1E9D6387C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7767BC7A-86B5-4438-A295-48B1E9D6387C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7767BC7A-86B5-4438-A295-48B1E9D6387C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
-﻿using ProjectMovieBook.Models.Book;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjectMovieBook.Models.Movie
 {

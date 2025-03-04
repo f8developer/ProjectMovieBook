@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMovieBook.Models;
+using System.Diagnostics;
 
 namespace ProjectMovieBook.Controllers;
 
