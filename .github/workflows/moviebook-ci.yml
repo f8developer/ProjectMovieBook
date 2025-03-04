@@ -8,7 +8,7 @@ on:
 
 env:
   DOTNET_VERSION: '9.0.x'
-  AZURE_WEBAPP_NAME: moviebook-app
+  AZURE_WEBAPP_NAME: your-moviebook-app
   MIGRATION_PROJECT: 'ProjectMovieBook.Data'
   STARTUP_PROJECT: 'ProjectMovieBook'
   PUBLISH_OUTPUT_DIR: './publish'
@@ -27,20 +27,20 @@ jobs:
 
     - name: Restore dependencies
       run: |
-        dotnet restore src/ProjectMovieBook
-        dotnet restore src/ProjectMovieBook.Data
-        dotnet restore src/ProjectMovieBook.Core
+        dotnet restore ProjectMovieBook
+        dotnet restore ProjectMovieBook.Data
+        dotnet restore ProjectMovieBook.Core
 
     - name: Build solution
-      run: dotnet build src/MovieBook.sln --configuration Release --no-restore
+      run: dotnet build MovieBook.sln --configuration Release --no-restore
 
     - name: Run tests
       run: |
-        dotnet test src/ProjectMovieBook.Core --configuration Release --no-build
-        dotnet test src/ProjectMovieBook.Data --configuration Release --no-build
+        dotnet test ProjectMovieBook.Core --configuration Release --no-build
+        dotnet test ProjectMovieBook.Data --configuration Release --no-build
 
     - name: Publish MVC project
-      run: dotnet publish src/ProjectMovieBook \
+      run: dotnet publish ProjectMovieBook \
           -c Release \
           -o ${{ env.PUBLISH_OUTPUT_DIR }} \
           --no-build
@@ -68,8 +68,8 @@ jobs:
         ConnectionStrings__DefaultConnection: ${{ secrets.PROD_DB_CONNECTION_STRING }}
       run: |
         dotnet ef database update \
-          --project src/ProjectMovieBook.Data \
-          --startup-project src/ProjectMovieBook \
+          --project ProjectMovieBook.Data \
+          --startup-project ProjectMovieBook \
           --configuration Release \
           --verbosity detailed
 
