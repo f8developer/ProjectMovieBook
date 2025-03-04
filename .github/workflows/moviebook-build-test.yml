@@ -1,0 +1,39 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  DOTNET_VERSION: '9.0.x'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore dependencies
+      run: |
+        dotnet restore ProjectMovieBook
+        dotnet restore ProjectMovieBook.Data
+        dotnet restore ProjectMovieBook.Core
+
+    - name: Build solution
+      id: build
+      run: dotnet build ProjectMovieBook.sln --configuration Release --no-restore
+
+    - name: Run tests (only if build succeeds)
+      if: steps.build.outcome == 'success'
+      run: |
+        echo "Build succeeded - running tests..."
+        dotnet test ProjectMovieBook.Core --configuration Release --no-build
+        dotnet test ProjectMovieBook.Data --configuration Release --no-build
