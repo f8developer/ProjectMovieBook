@@ -1,0 +1,98 @@
+name: Build, Test, Migrate, Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  AZURE_WEBAPP_NAME: moviebook-app
+  MIGRATION_PROJECT: 'ProjectMovieBook.Data'
+  STARTUP_PROJECT: 'ProjectMovieBook'
+  PUBLISH_OUTPUT_DIR: './publish'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore dependencies
+      run: |
+        dotnet restore src/ProjectMovieBook
+        dotnet restore src/ProjectMovieBook.Data
+        dotnet restore src/ProjectMovieBook.Core
+
+    - name: Build solution
+      run: dotnet build src/MovieBook.sln --configuration Release --no-restore
+
+    - name: Run tests
+      run: |
+        dotnet test src/ProjectMovieBook.Core --configuration Release --no-build
+        dotnet test src/ProjectMovieBook.Data --configuration Release --no-build
+
+    - name: Publish MVC project
+      run: dotnet publish src/ProjectMovieBook \
+          -c Release \
+          -o ${{ env.PUBLISH_OUTPUT_DIR }} \
+          --no-build
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: moviebook-app
+        path: ${{ env.PUBLISH_OUTPUT_DIR }}
+
+  database-migrations:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Run EF Core migrations
+      env:
+        ConnectionStrings__DefaultConnection: ${{ secrets.PROD_DB_CONNECTION_STRING }}
+      run: |
+        dotnet ef database update \
+          --project src/ProjectMovieBook.Data \
+          --startup-project src/ProjectMovieBook \
+          --configuration Release \
+          --verbosity detailed
+
+  deploy:
+    needs: [build-and-test, database-migrations]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: moviebook-app
+        path: ${{ env.PUBLISH_OUTPUT_DIR }}
+
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: ${{ env.PUBLISH_OUTPUT_DIR }}
+
+    - name: Verify deployment
+      run: |
+        curl --retry 5 --retry-delay 10 --retry-connrefused \
+          ${{ secrets.PRODUCTION_URL }} \
+          -H "Authorization: Bearer ${{ secrets.HEALTHCHECK_TOKEN }}"
