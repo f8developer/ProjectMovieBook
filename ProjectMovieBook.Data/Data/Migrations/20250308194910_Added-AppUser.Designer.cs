@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectMovieBook.Data;
 
@@ -11,9 +12,11 @@ using ProjectMovieBook.Data;
 namespace ProjectMovieBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250308194910_Added-AppUser")]
+    partial class AddedAppUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,7 +236,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.Author", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +254,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.Book", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +285,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.BookGenre", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.BookGenre", b =>
                 {
                     b.Property<int>("BookId")
                         .HasColumnType("int");
@@ -297,65 +300,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("BookGenres");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.UserBookLike", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserBookLikes");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.UserBookRating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Message")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("RatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RatingValue")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserBookRatings");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Genre", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -373,7 +318,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.Director", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.Director", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -391,7 +336,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("Directors");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.Movie", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -422,7 +367,7 @@ namespace ProjectMovieBook.Data.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.MovieGenre", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.MovieGenre", b =>
                 {
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
@@ -435,64 +380,6 @@ namespace ProjectMovieBook.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("MovieGenres");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.UserMovieLike", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserMovieLikes");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.UserMovieRating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Message")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("RatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RatingValue")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserMovieRatings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -546,9 +433,9 @@ namespace ProjectMovieBook.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.Book", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.Book", b =>
                 {
-                    b.HasOne("ProjectMovieBook.Data.Models.Book.Author", "Author")
+                    b.HasOne("ProjectMovieBook.Models.Book.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -556,23 +443,22 @@ namespace ProjectMovieBook.Data.Migrations
 
                     b.HasOne("ProjectMovieBook.Data.Models.AppUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("CreatedByUserId");
 
                     b.Navigation("Author");
 
                     b.Navigation("CreatedByUser");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.BookGenre", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.BookGenre", b =>
                 {
-                    b.HasOne("ProjectMovieBook.Data.Models.Book.Book", "Book")
+                    b.HasOne("ProjectMovieBook.Models.Book.Book", "Book")
                         .WithMany("BookGenres")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectMovieBook.Data.Models.Genre", "Genre")
+                    b.HasOne("ProjectMovieBook.Models.Genre", "Genre")
                         .WithMany("BookGenres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -583,52 +469,13 @@ namespace ProjectMovieBook.Data.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.UserBookLike", b =>
-                {
-                    b.HasOne("ProjectMovieBook.Data.Models.Book.Book", "Book")
-                        .WithMany("UserLikes")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectMovieBook.Data.Models.AppUser", "User")
-                        .WithMany("BookLikes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.UserBookRating", b =>
-                {
-                    b.HasOne("ProjectMovieBook.Data.Models.Book.Book", "Book")
-                        .WithMany("UserRatings")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectMovieBook.Data.Models.AppUser", "User")
-                        .WithMany("BookRatings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.Movie", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.Movie", b =>
                 {
                     b.HasOne("ProjectMovieBook.Data.Models.AppUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("CreatedByUserId");
 
-                    b.HasOne("ProjectMovieBook.Data.Models.Movie.Director", "Director")
+                    b.HasOne("ProjectMovieBook.Models.Movie.Director", "Director")
                         .WithMany("Movies")
                         .HasForeignKey("DirectorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -639,15 +486,15 @@ namespace ProjectMovieBook.Data.Migrations
                     b.Navigation("Director");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.MovieGenre", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.MovieGenre", b =>
                 {
-                    b.HasOne("ProjectMovieBook.Data.Models.Genre", "Genre")
+                    b.HasOne("ProjectMovieBook.Models.Genre", "Genre")
                         .WithMany("MovieGenres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectMovieBook.Data.Models.Movie.Movie", "Movie")
+                    b.HasOne("ProjectMovieBook.Models.Movie.Movie", "Movie")
                         .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -658,88 +505,31 @@ namespace ProjectMovieBook.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.UserMovieLike", b =>
-                {
-                    b.HasOne("ProjectMovieBook.Data.Models.Movie.Movie", "Movie")
-                        .WithMany("UserLikes")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectMovieBook.Data.Models.AppUser", "User")
-                        .WithMany("MovieLikes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.UserMovieRating", b =>
-                {
-                    b.HasOne("ProjectMovieBook.Data.Models.Movie.Movie", "Movie")
-                        .WithMany("UserRatings")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectMovieBook.Data.Models.AppUser", "User")
-                        .WithMany("MovieRatings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.AppUser", b =>
-                {
-                    b.Navigation("BookLikes");
-
-                    b.Navigation("BookRatings");
-
-                    b.Navigation("MovieLikes");
-
-                    b.Navigation("MovieRatings");
-                });
-
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.Author", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.Author", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Book.Book", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Book.Book", b =>
                 {
                     b.Navigation("BookGenres");
-
-                    b.Navigation("UserLikes");
-
-                    b.Navigation("UserRatings");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Genre", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Genre", b =>
                 {
                     b.Navigation("BookGenres");
 
                     b.Navigation("MovieGenres");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.Director", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.Director", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("ProjectMovieBook.Data.Models.Movie.Movie", b =>
+            modelBuilder.Entity("ProjectMovieBook.Models.Movie.Movie", b =>
                 {
                     b.Navigation("MovieGenres");
-
-                    b.Navigation("UserLikes");
-
-                    b.Navigation("UserRatings");
                 });
 #pragma warning restore 612, 618
         }

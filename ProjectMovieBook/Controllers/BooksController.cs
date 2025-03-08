@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectMovieBook.Data;
-using ProjectMovieBook.Models;
-using ProjectMovieBook.Models.Book;
+using ProjectMovieBook.Data.Models;
+using ProjectMovieBook.Data.Models.Book;
 
 namespace ProjectMovieBook.Controllers
 {
@@ -161,9 +161,10 @@ namespace ProjectMovieBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,AuthorId,Rating")] Book book, string AuthorName, string Genres)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Rating")] Book book, string AuthorName, string Genres)
         {
             ModelState.Remove("Author");
+            ModelState.Remove("AuthorId");
 
             if (id != book.Id)
             {

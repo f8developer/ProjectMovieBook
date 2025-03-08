@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using ProjectMovieBook.Data;
-using ProjectMovieBook.Models;
-using ProjectMovieBook.Models.Book;
-using ProjectMovieBook.Models.Movie;
+using ProjectMovieBook.Data.Models;
+using ProjectMovieBook.Data.Models.Book;
+using ProjectMovieBook.Data.Models.Movie;
 
 [TestFixture]
 public class MovieRepositoryTests

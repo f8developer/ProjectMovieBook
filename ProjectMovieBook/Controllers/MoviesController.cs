@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectMovieBook.Data;
-using ProjectMovieBook.Models;
-using ProjectMovieBook.Models.Movie;
+using ProjectMovieBook.Data.Models;
+using ProjectMovieBook.Data.Models.Movie;
 
 namespace ProjectMovieBook.Controllers
 {

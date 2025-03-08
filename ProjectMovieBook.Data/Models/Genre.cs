@@ -1,8 +1,8 @@
-﻿using ProjectMovieBook.Models.Book;
-using ProjectMovieBook.Models.Movie;
+﻿using ProjectMovieBook.Data.Models.Book;
+using ProjectMovieBook.Data.Models.Movie;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectMovieBook.Models
+namespace ProjectMovieBook.Data.Models
 {
     public class Genre
     {

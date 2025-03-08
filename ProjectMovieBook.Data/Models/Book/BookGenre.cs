@@ -1,4 +1,4 @@
-﻿namespace ProjectMovieBook.Models.Book
+﻿namespace ProjectMovieBook.Data.Models.Book
 {
     public class BookGenre
     {

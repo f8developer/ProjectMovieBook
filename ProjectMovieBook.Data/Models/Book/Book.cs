@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-namespace ProjectMovieBook.Models.Book
+namespace ProjectMovieBook.Data.Models.Book
 {
     public class Book
     {
@@ -31,11 +32,31 @@ namespace ProjectMovieBook.Models.Book
         /// </summary>
         [Required(ErrorMessage = "At least one genre must be associated with the book")]
         public List<BookGenre> BookGenres { get; set; } = new();
+
         /// <summary>
         /// The rating of the book (out of 5).
         /// </summary>
         [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
         public int Rating { get; set; } = 1;
 
+        /// <summary>
+        /// The ID of the user who created the entry (nullable).
+        /// </summary>
+        public string? CreatedByUserId { get; set; }
+
+        /// <summary>
+        /// The user who created the entry (nullable).
+        /// </summary>
+        public AppUser? CreatedByUser { get; set; }
+
+        /// <summary>
+        /// The list of ratings associated with the book.
+        /// </summary>
+        public List<UserBookRating>? UserRatings { get; set; }
+
+        /// <summary>
+        /// The list of users who liked the book.
+        /// </summary>
+        public List<UserBookLike>? UserLikes { get; set; }
     }
 }

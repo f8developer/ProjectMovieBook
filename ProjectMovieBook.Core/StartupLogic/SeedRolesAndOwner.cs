@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProjectMovieBook.Data;
+using ProjectMovieBook.Data.Models;
 
 namespace ProjectMovieBook.Core.StartupLogic
 {
@@ -16,7 +17,7 @@ namespace ProjectMovieBook.Core.StartupLogic
             try
             {
                 var context = services.GetRequiredService<ApplicationDbContext>();
-                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 var configuration = services.GetRequiredService<IConfiguration>();
 
@@ -24,7 +25,7 @@ namespace ProjectMovieBook.Core.StartupLogic
                 await context.Database.MigrateAsync();
 
                 // Create roles if they don't exist
-                string[] roles = { "User", "Administrator", "Owner" };
+                string[] roles = { "Administrator", "Owner" };
                 foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))
@@ -34,7 +35,7 @@ namespace ProjectMovieBook.Core.StartupLogic
                 }
 
                 // Setup owner user
-                var ownerUser = new IdentityUser
+                var ownerUser = new AppUser
                 {
                     UserName = "owner@example.com",
                     Email = "owner@example.com"
